@@ -1,0 +1,8 @@
+package ${package.Mapper};
+
+import ${package.Entity}.${entity};
+import cn.itsource.crm.mapper.BaseMapper;
+
+public interface ${table.mapperName} extends BaseMapper<${entity}> {
+
+}

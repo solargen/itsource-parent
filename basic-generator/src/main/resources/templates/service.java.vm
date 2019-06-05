@@ -1,0 +1,8 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import cn.itsource.crm.service.IBaseService;
+
+public interface I${entity}Service extends IBaseService<${entity}> {
+
+}

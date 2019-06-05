@@ -1,0 +1,10 @@
+package cn.itsource.crm.query;
+
+
+/**
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public class ${table.entityName}Query extends BaseQuery{
+}

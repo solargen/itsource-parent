@@ -1,0 +1,11 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import cn.itsource.crm.service.impl.BaseServiceImpl;
+import ${package.Service}.${table.serviceName};
+import org.springframework.stereotype.Service;
+
+@Service
+public class ${entity}ServiceImpl extends BaseServiceImpl<${entity}> implements ${table.serviceName}{
+
+}
