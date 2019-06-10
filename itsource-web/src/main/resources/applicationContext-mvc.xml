@@ -11,10 +11,6 @@
     <mvc:default-servlet-handler/>
     <!--注解驱动-->
     <mvc:annotation-driven/>
-    <!--跨域配置-->
-    <mvc:cors>
-        <mvc:mapping path="/**"/>
-    </mvc:cors>
 
     <!-- 配置文件上传解析器 -->
     <bean id="multipartResolver"

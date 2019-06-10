@@ -30,4 +30,8 @@ public class BaseQuery {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
+    public int getBegin(){
+        return (page-1)*rows;
+    }
 }

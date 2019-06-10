@@ -33,6 +33,49 @@
         </collection>
     </resultMap>
 
+    <resultMap id="FirstLevelMenuMap" type="cn.itsource.crm.domain.Menu">
+        <id column="id" property="id" />
+        <result column="sn" property="sn" />
+        <result column="name" property="name" />
+        <result column="parent_id" property="parentId" />
+        <result column="icon" property="icon" />
+        <result column="path" property="path" />
+        <result column="component" property="component" />
+        <result column="intro" property="intro" />
+        <collection property="children" ofType="cn.itsource.crm.domain.Menu"
+            select="selectByParentId" column="id">
+        </collection>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="Menu">
+        insert into t_menu
+        (
+            sn,
+            name,
+            parent_id,
+            icon,
+            path,
+            component,
+            intro
+        )
+        values
+        (
+            #{sn},
+            #{name},
+            #{parentId},
+            #{icon},
+            #{path},
+            #{component},
+            #{intro}
+        )
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete from t_menu where id=#{id}
+    </delete>
+
+
     <!--查询员工所有有权限的菜单-->
     <select id="selectByEmployeeId" resultMap="MenuMap">
         SELECT DISTINCT
@@ -51,7 +94,48 @@
         JOIN t_menu m ON p.menu_id = m.id
         LEFT JOIN t_menu pm ON m.parent_id = pm.id
         ORDER BY
-            pm.id
+            pm.id,m.id
     </select>
+
+    <!--根据父id查询子菜单-->
+    <select id="selectByParentId" resultType="Menu" parameterType="long">
+        select *
+        from t_menu
+        where parent_id = #{id}
+    </select>
+
+    <!--分页高级查询-->
+    <select id="selectList" parameterType="MenuQuery" resultMap="FirstLevelMenuMap">
+        select *
+        from t_menu
+        <where>
+            parent_id = 0
+            <include refid="whereSql"/>
+        </where>
+        limit #{begin},#{rows}
+    </select>
+    <select id="countList" parameterType="MenuQuery" resultType="long">
+        select count(*)
+        from t_menu
+        <where>
+            parent_id = 0
+            <include refid="whereSql"/>
+        </where>
+    </select>
+
+    <!--加载所有一级菜单-->
+    <select id="selectParentMenus" resultType="cn.itsource.crm.domain.Menu">
+        select * from t_menu where parent_id=0
+    </select>
+
+    <!--根据标识查询菜单-->
+    <select id="getBySn" resultType="cn.itsource.crm.domain.Menu">
+        select * from t_menu where sn = #{sn}
+    </select>
+
+    <!--公共的查询条件-->
+    <sql id="whereSql">
+
+    </sql>
 
 </mapper>

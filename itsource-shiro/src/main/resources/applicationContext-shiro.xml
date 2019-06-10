@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--session管理器-->
     <bean id="sessionManager" class="cn.itsource.crm.shiro.util.CrmSessionManager"/>
@@ -23,6 +23,7 @@
         </property>
     </bean>
 
+    <bean id="myAuthc" class="cn.itsource.crm.shiro.util.MyAuthenticationFilter"/>
 
     <!--shiro的过滤器配置-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -30,15 +31,15 @@
         <property name="loginUrl" value="/s/login"/>
         <property name="successUrl" value="/s/index"/>
         <property name="unauthorizedUrl" value="/s/unauthorized"/>
-        <!-- <property name="filters">
+        <property name="filters">
             <util:map>
-                <entry key="aName" value-ref="someFilterPojo"/>
+                <entry key="myAuthc" value-ref="myAuthc"/>
             </util:map>
-        </property> -->
+        </property>
         <property name="filterChainDefinitions">
             <value>
                 /login = anon
-                /** = authc
+                /** = myAuthc
             </value>
         </property>
     </bean>

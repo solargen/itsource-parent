@@ -17,7 +17,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/menu")
+@CrossOrigin
 public class MenuController {
+
+    public MenuController(){
+        System.out.println("MenuController");
+    }
 
     @Autowired
     private IMenuService menuService;
@@ -30,8 +35,10 @@ public class MenuController {
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public AjaxResult save(@RequestBody Menu menu){
         try {
-            if(menu.getId()!=null){
+            if(menu.getId()==null){
                 //添加
+                if(menu.getParentId()==null)
+                    menu.setParentId(0L);
                 menuService.add(menu);
             }else{
                 //修改
@@ -74,7 +81,7 @@ public class MenuController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "getById",method = RequestMethod.GET)
+    @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public Menu getById(@RequestParam("id") Long id){
         return menuService.getById(id);
     }
@@ -84,9 +91,28 @@ public class MenuController {
      * @param query
      * @return
      */
-    @RequestMapping(value = "query",method = RequestMethod.POST)
-    public PageList<Menu> query(MenuQuery query){
+    @RequestMapping(value = "/query",method = RequestMethod.POST)
+    public PageList<Menu> query(@RequestBody MenuQuery query){
         return menuService.getPage(query);
+    }
+
+    /**
+     * 加载所有一级菜单
+     * @return
+     */
+    @RequestMapping(value = "/getParentMenus",method = RequestMethod.GET)
+    public List<Menu> getParentMenus(){
+        return menuService.getParentMenus();
+    }
+
+    /**
+     * 验证菜单标识是否已经存在
+     * @param sn
+     * @return
+     */
+    @RequestMapping(value = "/validateSn",method = RequestMethod.GET)
+    public boolean validateSn(@RequestParam("sn") String sn){
+        return menuService.validateSn(sn);
     }
 
 }

@@ -32,6 +32,8 @@ public class Menu{
 
     private List<Menu> children = new ArrayList<>();
 
+    private boolean hasChildren = true;
+
 
     public Long getId() {
         return id;

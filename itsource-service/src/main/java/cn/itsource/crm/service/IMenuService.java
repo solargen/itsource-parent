@@ -13,4 +13,17 @@ public interface IMenuService extends IBaseService<Menu> {
      * @return
      */
     List<Menu> initMenu(Long id);
+
+    /**
+     * 加载所有一级菜单
+     * @return
+     */
+    List<Menu> getParentMenus();
+
+    /**
+     * 验证菜单标识
+     * @param sn
+     * @return
+     */
+    boolean validateSn(String sn);
 }

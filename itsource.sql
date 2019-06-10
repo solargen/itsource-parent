@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2019-06-05 22:03:57
+Date: 2019-06-10 10:38:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `t_department` (
   `dirPath` varchar(50) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_department
@@ -82,23 +82,24 @@ CREATE TABLE `t_menu` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `parent_id` bigint(20) unsigned zerofill DEFAULT '00000000000000000000',
   `icon` varchar(255) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
   `component` varchar(255) DEFAULT NULL,
   `intro` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', 'system', '系统管理', '0', 'el-icon-setting', '/', null, null);
-INSERT INTO `t_menu` VALUES ('2', 'employee', '员工管理', '1', null, '/employee', 'Employee', null);
-INSERT INTO `t_menu` VALUES ('3', 'department', '部门管理', '1', null, '/department', 'Department', null);
-INSERT INTO `t_menu` VALUES ('4', 'role', '角色管理', '1', null, '/role', 'Role', null);
-INSERT INTO `t_menu` VALUES ('5', 'permission', '权限管理', '1', null, '/permission', 'Permission', null);
-INSERT INTO `t_menu` VALUES ('6', 'menu', '菜单管理', '1', null, '/menu', 'Menu', null);
+INSERT INTO `t_menu` VALUES ('1', 'system', '系统管理', '00000000000000000000', 'el-icon-setting', '/', null, null);
+INSERT INTO `t_menu` VALUES ('2', 'employee', '员工管理', '00000000000000000007', null, '/employee', 'Employee', null);
+INSERT INTO `t_menu` VALUES ('3', 'department', '部门管理', '00000000000000000007', null, '/department', 'Department', null);
+INSERT INTO `t_menu` VALUES ('4', 'role', '角色管理', '00000000000000000001', null, '/role', 'Role', null);
+INSERT INTO `t_menu` VALUES ('5', 'permission', '权限管理', '00000000000000000001', null, '/permission', 'Permission', null);
+INSERT INTO `t_menu` VALUES ('6', 'menu', '菜单管理', '00000000000000000001', null, '/menu', 'Menu', null);
+INSERT INTO `t_menu` VALUES ('7', 'institution', '组织机构', '00000000000000000000', null, '/', null, null);
 
 -- ----------------------------
 -- Table structure for t_permission

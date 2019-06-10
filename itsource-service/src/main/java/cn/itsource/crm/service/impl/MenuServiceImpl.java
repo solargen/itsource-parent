@@ -26,7 +26,29 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements IMenuServi
     @Override
     public List<Menu> initMenu(Long employeeId) {
         List<Menu> list =  menuMapper.selectByEmployeeId(employeeId);
-
         return list;
+    }
+
+    /**
+     * 加载所有一级菜单
+     * @return
+     */
+    @Override
+    public List<Menu> getParentMenus() {
+        return menuMapper.selectParentMenus();
+    }
+
+    /**
+     * 验证菜单标识
+     * @param sn
+     * @return
+     */
+    @Override
+    public boolean validateSn(String sn) {
+        Menu menu = menuMapper.getBySn(sn);
+        if(menu==null){
+            return true;
+        }
+        return false;
     }
 }
